@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
 
-class TaskTile extends StatefulWidget {
+class TaskTile extends StatelessWidget {
   final int severity;
+  final String name;
+  final bool isCompleted;
+  final Function completionCallback;
+  final Function removeCallback;
 
-  const TaskTile(this.severity);
-
-  @override
-  _TaskTileState createState() => _TaskTileState();
-}
-
-class _TaskTileState extends State<TaskTile> {
-  bool isCompleted = false;
+  const TaskTile(this.name, this.severity, this.isCompleted,
+      this.completionCallback, this.removeCallback);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        setState(() {
-          isCompleted = !isCompleted;
-        });
-      },
-      title: Text('test task',
+      title: Text(name,
           style: TextStyle(
             decoration:
                 isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
           )),
       trailing: Icon(Icons.schedule,
-          color: widget.severity == 1
+          color: severity == 1
               ? Colors.green
-              : widget.severity == 2 ? Colors.orange : Colors.red),
+              : severity == 2 ? Colors.orange : Colors.red),
+      onTap: completionCallback,
+      onLongPress: removeCallback,
     );
   }
 }

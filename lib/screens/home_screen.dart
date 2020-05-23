@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/TasksList.dart';
 import '../screens/new_task_screen.dart';
+import 'package:todaylist/models/task.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,7 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Object> tasks;
+  List<Task> tasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +21,15 @@ class _HomeScreenState extends State<HomeScreen> {
               isScrollControlled: true,
               context: context,
               builder: (context) => StatefulBuilder(
-                  builder: (context, setState) =>
+                  builder: (context, setWidgetState) =>
                       NewTaskScreen((newTaskTitle, severity) {
                         setState(() {
-                          // Todo: add tasks model and dynamic list
-                          //tasks.add(Task(name: newTaskTitle));
-                          print(newTaskTitle + " " + severity.toString());
+                          tasks.add(Task(
+                              name: newTaskTitle,
+                              severity: severity,
+                              isCompleted: false));
                         });
+                        print(tasks);
                         Navigator.pop(context);
                       })));
         },
@@ -75,7 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0),
                       topRight: Radius.circular(20.0))),
-              child: TasksList(),
+              child: StatefulBuilder(
+                builder: (context, setState) => TasksList(tasks, setState),
+              ),
             ),
           ),
         ],
