@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/TasksList.dart';
+import '../screens/new_task_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,12 +8,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Object> tasks;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => StatefulBuilder(
+                  builder: (context, setState) =>
+                      NewTaskScreen((newTaskTitle, severity) {
+                        setState(() {
+                          // Todo: add tasks model and dynamic list
+                          //tasks.add(Task(name: newTaskTitle));
+                          print(newTaskTitle + " " + severity.toString());
+                        });
+                        Navigator.pop(context);
+                      })));
+        },
         backgroundColor: Colors.blueAccent,
         child: Icon(Icons.add),
       ),
