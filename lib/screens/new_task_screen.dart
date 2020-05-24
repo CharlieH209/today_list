@@ -13,19 +13,21 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   String newTaskTitle;
   int severity;
 
-  // todo: Add colour coding
   List<DropdownMenuItem> severityItems = [
     DropdownMenuItem(
-      child: Text('Low Urgency'),
-      value: 1,
+      child: Text('High Urgency', style: TextStyle(color: Colors.red)),
+      value: 3,
     ),
     DropdownMenuItem(
-      child: Text('Moderate Urgency'),
+      child: Text(
+        'Moderate Urgency',
+        style: TextStyle(color: Colors.orange),
+      ),
       value: 2,
     ),
     DropdownMenuItem(
-      child: Text('High Urgency'),
-      value: 3,
+      child: Text('Low Urgency', style: TextStyle(color: Colors.green)),
+      value: 1,
     ),
   ];
 
@@ -34,14 +36,15 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     return Container(
       color: Color(0xff757575),
       child: Container(
-        margin: EdgeInsets.only(top: 25.0),
+        margin: EdgeInsets.only(top: 0),
         padding: EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            )),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
