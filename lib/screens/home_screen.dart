@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/TasksList.dart';
 import '../screens/new_task_screen.dart';
 import 'package:todaylist/models/task.dart';
+import '../widgets/ListPlaceholder.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Task> tasks = [];
+  bool taskCreated = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               name: newTaskTitle,
                               severity: severity,
                               isCompleted: false));
+                          taskCreated = true;
                         });
                         print(tasks);
                         Navigator.pop(context);
@@ -72,16 +75,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0))),
-              child: StatefulBuilder(
-                builder: (context, setState) => TasksList(tasks, setState),
-              ),
-            ),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0))),
+                child: tasks.length > 0
+                    ?
+//                  ? StatefulBuilder(
+//                      builder: (context, setState) =>
+//                          TasksList(tasks, setState))
+                    TasksList(tasks, (index) {
+                        setState(() {
+                          tasks[index].toggleCompletion();
+                        });
+                      }, (index) {
+                        setState(() {
+                          tasks.removeAt(index);
+                        });
+                      })
+                    : ListPlaceholder(taskCreated)),
           ),
         ],
       ),

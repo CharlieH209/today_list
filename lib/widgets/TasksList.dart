@@ -4,25 +4,22 @@ import 'package:todaylist/models/task.dart';
 
 class TasksList extends StatelessWidget {
   final List<Task> tasks;
-  final StateSetter setState;
+  //final StateSetter setState;
+  final Function removeCallback;
+  final Function toggleCallback;
 
-  TasksList(this.tasks, this.setState);
+  TasksList(this.tasks, this.removeCallback, this.toggleCallback);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
         return TaskTile(
-            tasks[index].name, tasks[index].severity, tasks[index].isCompleted,
-            () {
-          setState(() {
-            tasks[index].toggleCompletion();
-          });
-        }, () {
-          setState(() {
-            tasks.removeAt(index);
-          });
-        });
+            tasks[index].name,
+            tasks[index].severity,
+            tasks[index].isCompleted,
+            () => toggleCallback(index),
+            () => removeCallback(index));
       },
       itemCount: tasks != null ? tasks.length : 0,
     );

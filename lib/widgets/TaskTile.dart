@@ -4,11 +4,11 @@ class TaskTile extends StatelessWidget {
   final int severity;
   final String name;
   final bool isCompleted;
-  final Function completionCallback;
   final Function removeCallback;
+  final Function completionCallback;
 
   const TaskTile(this.name, this.severity, this.isCompleted,
-      this.completionCallback, this.removeCallback);
+      this.removeCallback, this.completionCallback);
 
   @override
   Widget build(BuildContext context) {
