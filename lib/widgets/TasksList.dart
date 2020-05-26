@@ -4,7 +4,6 @@ import 'package:todaylist/models/task.dart';
 
 class TasksList extends StatelessWidget {
   final List<Task> tasks;
-  //final StateSetter setState;
   final Function removeCallback;
   final Function toggleCallback;
 
