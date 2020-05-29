@@ -30,7 +30,7 @@ class ListPlaceholder extends StatelessWidget {
                       height: 24.0,
                     ),
                     Text(
-                      'Would you like to add yesterdays incomplete tasks?',
+                      'Would you like to add previous incomplete tasks?',
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w500,
